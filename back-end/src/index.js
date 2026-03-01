@@ -27,14 +27,9 @@ dotenv.config();
 const app = express();
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173", // optional if still running dev
-      "http://localhost:8080", // frontend container port
-    ],
-    credentials: true,
+    origin: "*",
   }),
 );
-
 // await waitPort({ host: "localhost", port: 8000, timeout: 10000 });
 
 app.use(cookieParser());
