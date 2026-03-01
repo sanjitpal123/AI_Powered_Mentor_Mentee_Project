@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:6
+    container_name: mongocontainer
+    restart: always
+    ports:
+      - "3400:27017" # ✅ Fix: Mongo listens on 27017 inside container
+    volumes:
+      - mongodb:/data/db
+
+  backend:
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    container_name: back_end
+    restart: always
+    ports:
+      - "5001:5000"
+    environment:
+      - MONGO_URI=mongodb+srv://sanjitpal:sanjitpal123@cluster0.2c7cetn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ./front-end/mentorfont-end
+      dockerfile: Dockerfile
+    container_name: frontend
+    restart: always
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    environment:
+      - REACT_APP_API_URL=http://backend:5000/api/v1
+
+volumes:
+  mongodb:

@@ -1,0 +1,49 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "@chroma-core/default-embed": "^0.1.8",
+    "@chroma-core/openai": "^0.1.7",
+    "@huggingface/hub": "^2.6.12",
+    "@huggingface/inference": "^4.13.0",
+    "@langchain/community": "1.1.15",
+    "@langchain/core": "1.1.15",
+    "@langchain/groq": "1.0.3",
+    "@langchain/openai": "1.2.7",
+    "@langchain/pinecone": "1.0.1",
+    "@langchain/textsplitters": "1.0.1",
+    "@pinecone-database/pinecone": "5.1.2",
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
+    "chromadb": "^3.1.0",
+    "cloudinary": "^2.7.0",
+    "cohere-ai": "^7.17.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "groq-sdk": "^0.34.0",
+    "jsonwebtoken": "^9.0.2",
+    "langchain": "1.2.10",
+    "mongoose": "^8.16.0",
+    "multer": "^2.0.1",
+    "nodemon": "^3.1.10",
+    "openai": "^4.62.1",
+    "pdf-parse": "1.1.1",
+    "razorpay": "^2.9.6",
+    "socket.io": "^4.8.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "wait-port": "^1.1.0"
+  },
+  "overrides": {
+    "pdf-parse": "1.1.1",
+    "@pinecone-database/pinecone": "5.1.2"
+  }
+}
