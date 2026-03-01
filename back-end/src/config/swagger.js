@@ -11,6 +11,7 @@ const options = {
     servers: [
       {
         url: "http://localhost:5000/api/v1",
+        url: "https://ai-powered-mentor-mentee-project-4.onrender.com/api/v1",
       },
     ],
     components: {
