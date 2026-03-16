@@ -3,6 +3,8 @@ import {
   GetMenteeByIdService,
 } from "../Services/Mentee.js";
 
+import mongoose from "mongoose";
+
 export const GetAllMentee = async (req, res) => {
   try {
     const getAll = await GetAllMenteeService();
@@ -22,7 +24,6 @@ export const GetAllMentee = async (req, res) => {
   }
 };
 
-import mongoose from "mongoose";
 
 export const AddMentorToWishList = async (req, res) => {
   // try {
@@ -72,7 +73,7 @@ export const AddMentorToWishList = async (req, res) => {
 export const GetMenteeById = async (req, res) => {
   try {
     const id = req.params.id;
-    const mentee = await GetMenteeByIdService(id);
+    const mentee = await GetMenteeByIdService(id).populate('sessions');
     if (!mentee) {
       return res.status(404).json({
         message: "Can not found any mentee",
