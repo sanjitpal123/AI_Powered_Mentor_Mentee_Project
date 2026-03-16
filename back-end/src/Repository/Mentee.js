@@ -22,6 +22,12 @@ export const GetMenteeByIdRepo = async (id) => {
           path: "mentor",
           select: "-password ",
         },
+      }).populate({
+        path: "sessions",
+        populate: {
+          path: "mentor",
+          select: "-password"
+        }
       });
 
     console.log(JSON.stringify(user, null, 2));

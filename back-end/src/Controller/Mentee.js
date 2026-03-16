@@ -73,7 +73,7 @@ export const AddMentorToWishList = async (req, res) => {
 export const GetMenteeById = async (req, res) => {
   try {
     const id = req.params.id;
-    const mentee = await GetMenteeByIdService(id).populate('sessions');
+    const mentee = await GetMenteeByIdService(id);
     if (!mentee) {
       return res.status(404).json({
         message: "Can not found any mentee",
@@ -82,8 +82,10 @@ export const GetMenteeById = async (req, res) => {
     }
     return res.status(201).json(mentee);
   } catch (error) {
+    console.log('errors', error)
     return res.status(501).json({
       message: "Internal server error",
+      error,
       success: false,
     });
   }
