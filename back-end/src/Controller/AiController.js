@@ -20,8 +20,11 @@ import {
 } from "../Services/AiFeatures.js";
 import Retrieve from "../Utils/Retrieve.js";
 import { AskQuestion } from "../Utils/AskQuestion.js";
+import { AgenticGraph } from "../AgenticRag/graph.js";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API });
+const app = AgenticGraph.compile();
+
 
 export const GenerateBio = async (req, res) => {
   try {
@@ -454,3 +457,32 @@ ${question}
     });
   }
 };
+
+export const AgenticRag = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const { query } = req.body;
+    const userProfile = await GetMenteeByIdService(userId);
+    const userProfileData = {
+      name: userProfile.name,
+      sessions: userProfile.sessions,
+
+
+    }
+    const response = await app.invoke({
+      messages: {
+        role: "user",
+        content: query
+      },
+      userId: userId,
+      userProfile: userProfileData
+
+    });
+    return res.status(201).json({
+      message: response.messages[response.messages.length - 1].content
+    });
+
+  } catch (error) {
+    console.log('error', error)
+  }
+}
