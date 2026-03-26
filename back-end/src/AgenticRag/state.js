@@ -3,7 +3,7 @@ import { Annotation } from "@langchain/langgraph";
 export const state = Annotation.Root({
     messages: Annotation({
         reducer: (left, right) => {
-            return [...left, ...right]
+            return [...left, ...(Array.isArray(right) ? right : [right])]
         },
         default: () => []
     }),

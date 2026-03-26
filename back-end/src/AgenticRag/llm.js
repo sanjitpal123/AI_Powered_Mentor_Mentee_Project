@@ -4,7 +4,7 @@ dotenv.config();
 
 const llm = new ChatGroq({
     apiKey: process.env.GROQ_API,
-    model: "llama-3.1-8b-instant",
+    model: "openai/gpt-oss-120b",
     temperature: 0.7,
 });
 

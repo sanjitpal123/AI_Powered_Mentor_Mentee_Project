@@ -56,7 +56,6 @@ export const FilterMentor = async (req, res) => {
       query.experience = { $gte: experiencevalue };
     }
     query.role = "mentor";
-    console.log("query", query);
     const mentors = await FilterMentorService(query, limit, offset);
     if (!mentors) {
       return res.status(404).json({

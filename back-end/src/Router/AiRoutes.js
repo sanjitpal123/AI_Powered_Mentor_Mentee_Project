@@ -1,6 +1,7 @@
 import express from "express";
 import { Auth } from "../middleWear/Auth.js";
 import {
+  AgenticRag,
   MenteeProfileAnalizeByAi,
   RagSystem,
   RetriveTopMatchMentor,
@@ -114,5 +115,35 @@ AiRouters.post("/task-creation", TaskCreation);
  *         description: Question is required
  */
 AiRouters.post("/chat-rag", RagSystem);
+
+/**
+ * @swagger
+ * /ai-features/askfromagentic:
+ *   post:
+ *     summary: Ask questions using Agentic AI system (multi-agent with tools)
+ *     tags: [AI]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - query
+ *             properties:
+ *               query:
+ *                 type: string
+ *                 example: Can you book a session for me tomorrow at 5pm?
+ *     responses:
+ *       201:
+ *         description: Response generated successfully
+ *       400:
+ *         description: Query is required
+ *       500:
+ *         description: Internal server error
+ */
+AiRouters.post("/askfromagentic", Auth, AgenticRag)
 
 export default AiRouters;

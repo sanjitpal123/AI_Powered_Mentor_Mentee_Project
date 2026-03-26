@@ -71,7 +71,6 @@ export const Signup = async (req, res) => {
 export const Login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log("email is ", email);
 
     const user = await IsExist(email);
     if (!user) {
@@ -107,7 +106,6 @@ export const Login = async (req, res) => {
       console.log("not created token", created);
     }
 
-    console.log("created session", created);
     res.cookie("token", token, {
       httpOnly: true,
       sameSite: "strict",
@@ -213,7 +211,6 @@ export const GetUsers = async (req, res) => {
 
 export const SearchMentor = async (req, res) => {
   try {
-    console.log("metnor", req.body);
     const { query } = req.body;
     const searchedUser = await SearchMentorService(query);
     if (!searchedUser) {

@@ -1,7 +1,6 @@
 import { json } from "express";
 import CreateCollection from "../config/CreateCollectionOFChromaDb.js";
 import cohere from "../config/OpenAi.js";
-import message from "../Model/Message.js";
 import {
   GetAllMenteeService,
   GetMenteeByIdService,
@@ -21,6 +20,7 @@ import {
 import Retrieve from "../Utils/Retrieve.js";
 import { AskQuestion } from "../Utils/AskQuestion.js";
 import { AgenticGraph } from "../AgenticRag/graph.js";
+import { HumanMessage } from "langchain";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API });
 const app = AgenticGraph.compile();
@@ -465,18 +465,18 @@ export const AgenticRag = async (req, res) => {
     const userProfile = await GetMenteeByIdService(userId);
     const userProfileData = {
       name: userProfile.name,
-      sessions: userProfile.sessions,
+      sessions: userProfile.sessions.length,
 
 
     }
     const response = await app.invoke({
-      messages: {
-        role: "user",
-        content: query
-      },
+      messages: [
+        new HumanMessage({
+          content: query || " "   // ✅ always safe
+        })
+      ],
       userId: userId,
       userProfile: userProfileData
-
     });
     return res.status(201).json({
       message: response.messages[response.messages.length - 1].content

@@ -75,6 +75,7 @@ function App() {
             <Route path="/createsession" element={<ScheduleSession />} />
             <Route path="/attendtask/:id" element={<TaskAttendPage />} />
             <Route path="/taskwinning/:id" element={<TaskWinningPage />} />
+            <Route path="/ai-solver" element={<AiDoubtSolver />} />
 
             <Route path="/result" element={<TaskResultPage />} />
             <Route
