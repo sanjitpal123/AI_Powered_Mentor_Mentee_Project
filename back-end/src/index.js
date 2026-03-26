@@ -43,12 +43,12 @@ const server = http.createServer(app);
 server.listen(process.env.PORT || 5000, () => {
   console.log("Server is running at", process.env.PORT || 5000);
   Connection();
-  LoadDocument(filePath);
+  // LoadDocument(filePath);
 });
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "*",
     credentials: true, // ✅ lowercase
   },
 });
