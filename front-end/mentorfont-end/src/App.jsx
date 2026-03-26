@@ -22,7 +22,6 @@ import Wishlist from "./pages/WishList";
 import { useContext } from "react";
 import ChatBox from "./pages/Chat";
 import MentorDashboard from "./pages/MentorDashboard";
-import AiDoubtSolver from "./pages/AiDoubtSolver";
 import MenteeDashboard from "./pages/MenteeDashboard";
 import ScheduleSession from "./pages/ScheduleSessionPage";
 import TaskAttendPage from "./pages/TaskAtttendPage";
@@ -31,6 +30,7 @@ import PerformanceMentee from "./pages/PerformanceSeenOfMenteeInMentorDashboard"
 import TaskWinningPage from "./pages/TaskWinnerPage";
 import { AiAnalizeProfile } from "./pages/AiAnalizeProfile";
 import ReviewAnalizedPage from "./pages/ReviewAnalizedPage";
+import AiDoubtSolverUI from "./pages/AiDoubtSolver";
 
 function App() {
   const { setUser, User } = useContext(GlobalContext);
@@ -75,7 +75,7 @@ function App() {
             <Route path="/createsession" element={<ScheduleSession />} />
             <Route path="/attendtask/:id" element={<TaskAttendPage />} />
             <Route path="/taskwinning/:id" element={<TaskWinningPage />} />
-            <Route path="/ai-solver" element={<AiDoubtSolver />} />
+            <Route path="/ai-solver" element={<AiDoubtSolverUI />} />
 
             <Route path="/result" element={<TaskResultPage />} />
             <Route

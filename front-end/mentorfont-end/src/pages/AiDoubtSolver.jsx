@@ -1,8 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   Send,
   Bot,
-  User,
   Users,
   Target,
   Lightbulb,
@@ -15,18 +14,44 @@ import SendMessageAndGetAnswer from "../services/AiSolver";
 import { GlobalContext } from "../ContextApiStore/ContextStore";
 
 const AiDoubtSolverUI = () => {
-  const messages = [];
   const { User } = useContext(GlobalContext);
   const [Query, setQuery] = useState("");
   const user = JSON.parse(localStorage.getItem("user"));
+  const [messages, setMessages] = useState([]);
+  const myRef = useRef(null);
+  const executeScroll = () =>
+    myRef.current.scrollIntoView({ behavior: "smooth" });
+
   async function send(query) {
+    if (!query.trim()) return;
+
     try {
+      const humanmessage = {
+        id: Date.now(),
+        type: "user",
+        message: query,
+      };
+
+      setMessages((prev) => [...prev, humanmessage]);
+      setQuery("");
+
       const respon = await SendMessageAndGetAnswer(query, user.token);
-      console.log("response getting after sending chat", respon);
+
+      const aimessage = {
+        id: Date.now() + 1,
+        type: "ai",
+        message: respon?.message || "No response",
+      };
+      console.log("ai mesage", aimessage);
+
+      setMessages((prev) => [...prev, aimessage]);
     } catch (error) {
-      throw error;
+      console.error(error);
     }
   }
+  useEffect(() => {
+    executeScroll();
+  }, [messages]);
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="flex flex-col h-screen max-w-4xl mx-auto">
@@ -64,7 +89,7 @@ const AiDoubtSolverUI = () => {
                 }`}
               >
                 {message.type === "user" ? (
-                  <User className="w-5 h-5 text-white" />
+                  <Bot className="w-5 h-5 text-white" />
                 ) : (
                   <Bot className="w-5 h-5 text-red-400" />
                 )}
@@ -74,6 +99,7 @@ const AiDoubtSolverUI = () => {
                 className={`max-w-md ${
                   message.type === "user" ? "ml-auto" : "mr-auto"
                 }`}
+                ref={myRef}
               >
                 <div
                   className={`px-4 py-3 rounded-2xl ${
@@ -82,14 +108,7 @@ const AiDoubtSolverUI = () => {
                       : "bg-gray-800 border border-gray-700 text-gray-100"
                   }`}
                 >
-                  <p className="text-sm leading-relaxed">{message.content}</p>
-                </div>
-                <div
-                  className={`mt-2 text-xs text-gray-500 ${
-                    message.type === "user" ? "text-right" : "text-left"
-                  }`}
-                >
-                  {message.timestamp}
+                  <p className="text-sm leading-relaxed">{message.message}</p>
                 </div>
               </div>
             </div>
