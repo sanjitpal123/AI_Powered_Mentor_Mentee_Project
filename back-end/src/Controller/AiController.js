@@ -19,11 +19,10 @@ import {
 } from "../Services/AiFeatures.js";
 import Retrieve from "../Utils/Retrieve.js";
 import { AskQuestion } from "../Utils/AskQuestion.js";
-import { AgenticGraph } from "../AgenticRag/graph.js";
 import { HumanMessage } from "langchain";
+import { supervisorAgent } from "../AgenticRag/graph.js";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API });
-const app = AgenticGraph.compile();
 
 
 export const GenerateBio = async (req, res) => {
@@ -469,15 +468,17 @@ export const AgenticRag = async (req, res) => {
 
 
     }
-    const response = await app.invoke({
+    const response = await supervisorAgent.invoke({
       messages: [
         new HumanMessage({
           content: query || " "   // ✅ always safe
         })
       ],
-      userId: userId,
-      userProfile: userProfileData
+
+    }, {
+      configurable: { userId, userProfileData }
     });
+    console.log('getting', response)
     return res.status(201).json({
       message: response.messages[response.messages.length - 1].content
     });

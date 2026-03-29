@@ -17,6 +17,8 @@ import {
 } from "../Services/Session.Service.js";
 
 import { GetAllMentorsService } from "../Services/Mentor.js";
+import User from "../Model/UserSchema.js";
+import Feedback from "../Model/Feedback.js";
 
 const tvly = tavily({ apiKey: process.env.TAVILY });
 
@@ -45,7 +47,9 @@ export const webSearch = tool(
    📅 GET ALL SESSIONS
 ===================================================== */
 export const getSessions = tool(
-    async ({ userId }) => {
+    async (_, config) => {
+        const { userId } = config.configurable;
+
         try {
             const sessions = await GetAllSessions(userId);
 
@@ -67,10 +71,8 @@ export const getSessions = tool(
     },
     {
         name: "getSessions",
-        description: "Get all sessions for a user",
-        schema: z.object({
-            userId: z.string(),
-        }),
+        description: "Get all sessions for logged-in user",
+        schema: z.object({}), // ✅ no input
     }
 );
 
@@ -300,5 +302,62 @@ export const getAllMentors = tool(
         name: "getMentors",
         description: "Get all mentors",
         schema: z.object({}),
+    }
+);
+export const getMenteeFeedback = tool(
+    async (_, config) => {
+        const { userId } = config.configurable;
+
+        try {
+            const getProfile = await Feedback.find({
+                $or: [{ mentee: userId }, { mentor: userId }],
+            });
+
+            return JSON.stringify(getProfile);
+        } catch (error) {
+            return `❌ Error: ${error.message}`;
+        }
+    },
+    {
+        name: "getMenteeFeedback",
+        description: "Get feedback of logged-in user",
+        schema: z.object({}), // ✅ removed userId
+    }
+);
+
+export const getMenteeOfAMentor = tool(
+    async ({ mentorId }) => {
+        try {
+            // Fetch mentor with mentees populated
+            const mentor = await User.findById(mentorId)
+                .populate("mentees", "name email") // optional fields
+                .lean();
+
+            if (!mentor) {
+                return JSON.stringify({
+                    success: false,
+                    message: "Mentor not found",
+                });
+            }
+
+            console.log('mentees', mentor.mentees)
+            return JSON.stringify({
+                success: true,
+                count: mentor.mentees.length,
+                mentees: mentor.mentees,
+            });
+        } catch (error) {
+            return JSON.stringify({
+                success: false,
+                message: error.message,
+            });
+        }
+    },
+    {
+        name: "getMenteeOfAMentor",
+        description: "Get all mentees of a mentor using mentorId",
+        schema: z.object({
+            mentorId: z.string().describe("The ID of the mentor"),
+        }),
     }
 );

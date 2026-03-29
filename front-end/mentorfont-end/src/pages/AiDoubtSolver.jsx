@@ -20,7 +20,7 @@ const AiDoubtSolverUI = () => {
   const [messages, setMessages] = useState([]);
   const myRef = useRef(null);
   const executeScroll = () =>
-    myRef.current.scrollIntoView({ behavior: "smooth" });
+    myRef?.current?.scrollIntoView({ behavior: "smooth" });
 
   async function send(query) {
     if (!query.trim()) return;
