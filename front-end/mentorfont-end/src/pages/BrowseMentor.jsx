@@ -326,7 +326,7 @@ function BrowseMentor() {
   }, [isWishListed]);
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-black">
+    <div ref={containerRef} className="min-h-screen bg-[#050505]">
       {/* Header Banner */}
       <HeroSection />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -363,16 +363,16 @@ function BrowseMentor() {
                     <option className="bg-gray-900 text-white">
                       Sort by: Recommended
                     </option>
-                    <option className="bg-gray-900 text-white">
+                    <option className="bg-[#050505] text-white">
                       Highest Rated
                     </option>
-                    <option className="bg-gray-900 text-white">
+                    <option className="bg-[#050505] text-white">
                       Most Reviews
                     </option>
-                    <option className="bg-gray-900 text-white">
+                    <option className="bg-[#050505] text-white">
                       Price: Low to High
                     </option>
-                    <option className="bg-gray-900 text-white">
+                    <option className="bg-[#050505] text-white">
                       Price: High to Low
                     </option>
                   </select>
@@ -387,10 +387,10 @@ function BrowseMentor() {
                 {Lowtohigh?.map((mentor, index) => (
                   <div
                     key={mentor.id}
-                    className="bg-gray-900 rounded-2xl shadow-2xl hover:shadow-red-500/20 transition-all duration-500 overflow-hidden group border border-gray-800 hover:border-red-600 transform hover:-translate-y-2"
+                    className="bg-[#0a0a0a] rounded-2xl shadow-xl hover:shadow-red-500/10 transition-all duration-500 overflow-hidden group border border-white/5 hover:border-red-500/30 transform hover:-translate-y-1"
                     onMouseEnter={(e) => {
                       gsap.to(e.currentTarget, {
-                        boxShadow: "0 25px 50px -12px rgba(239, 68, 68, 0.25)",
+                        boxShadow: "0 10px 30px -10px rgba(239, 68, 68, 0.15)",
                         duration: 0.3,
                         ease: "power2.out",
                       });
@@ -405,17 +405,16 @@ function BrowseMentor() {
                   >
                     <div className="p-6 relative">
                       {/* Animated gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-red-600/5 via-transparent to-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <div className="absolute inset-0 bg-gradient-to-br from-red-600/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                       {/* Header */}
                       <div className="flex items-start gap-4 mb-4 relative z-10">
-                        <div className="relative">
+                        <div className="relative flex-shrink-0">
                           <img
                             src={mentor?.avatar}
                             alt={mentor?.name}
-                            className="w-16 h-16 rounded-full object-cover ring-4 ring-red-600/30 transition-all duration-300 group-hover:ring-red-500"
+                            className="w-16 h-16 rounded-full object-cover ring-2 ring-white/10 transition-all duration-300 group-hover:ring-red-500/50"
                           />
-                          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-red-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </div>
                         <div className="flex-1">
                           <h3 className="text-xl font-bold text-white mb-1 group-hover:text-red-400 transition-colors duration-300">
@@ -441,13 +440,12 @@ function BrowseMentor() {
                           onClick={(e) => handleButtonClick(e, mentor._id)}
                         >
                           <Heart
-                            className={`w-5 h-5  ${
-                              Suser?.wishlist.some(
-                                (item) => item._id == mentor._id
-                              )
+                            className={`w-5 h-5  ${Suser?.wishlist.some(
+                              (item) => item._id == mentor._id
+                            )
                                 ? "text-red-500 "
                                 : "text-gray-400"
-                            } transition-colors duration-300`}
+                              } transition-colors duration-300`}
                           />
                         </button>
                       </div>
@@ -459,23 +457,23 @@ function BrowseMentor() {
 
                       {/* Stats */}
                       <div className="grid grid-cols-3 gap-4 mb-4 text-center relative z-10">
-                        <div className="bg-gray-800 rounded-xl p-3 border border-gray-700 hover:border-red-600/50 transition-all duration-300 group">
+                        <div className="bg-[#050505] rounded-xl p-3 border border-white/5 hover:border-red-500/30 transition-all duration-300 group">
                           <div className="text-lg font-bold text-white group-hover:text-red-400 transition-colors duration-300">
                             {mentor?.mentees}
                           </div>
-                          <div className="text-xs text-gray-400">Mentees</div>
+                          <div className="text-xs text-gray-500">Mentees</div>
                         </div>
-                        <div className="bg-gray-800 rounded-xl p-3 border border-gray-700 hover:border-red-600/50 transition-all duration-300 group">
+                        <div className="bg-[#050505] rounded-xl p-3 border border-white/5 hover:border-red-500/30 transition-all duration-300 group">
                           <div className="text-lg font-bold text-white group-hover:text-red-400 transition-colors duration-300">
                             {mentor?.sessions}
                           </div>
-                          <div className="text-xs text-gray-400">Sessions</div>
+                          <div className="text-xs text-gray-500">Sessions</div>
                         </div>
-                        <div className="bg-gray-800 rounded-xl p-3 border border-gray-700 hover:border-red-600/50 transition-all duration-300 group">
+                        <div className="bg-[#050505] rounded-xl p-3 border border-white/5 hover:border-red-500/30 transition-all duration-300 group">
                           <div className="text-lg font-bold text-white group-hover:text-red-400 transition-colors duration-300">
                             5+
                           </div>
-                          <div className="text-xs text-gray-400">Years Exp</div>
+                          <div className="text-xs text-gray-500">Years Exp</div>
                         </div>
                       </div>
 
@@ -492,25 +490,24 @@ function BrowseMentor() {
                       </div>
 
                       {/* Price and Actions */}
-                      <div className="flex items-center justify-between pt-4 border-t border-gray-700 relative z-10">
+                      <div className="flex items-center justify-between pt-4 border-t border-white/5 relative z-10">
                         <div className="flex items-center gap-1">
-                          <DollarSign className="w-5 h-5 text-red-600" />
-                          <span className="text-2xl font-bold text-white">
+                          <span className="text-2xl font-bold text-white tracking-tight">
                             ${mentor?.price}
                           </span>
-                          <span className="text-gray-400 text-sm">
+                          <span className="text-gray-500 text-sm">
                             /session
                           </span>
                         </div>
                         <div className="flex gap-2">
                           <button
-                            className="p-2 rounded-xl border border-gray-600 hover:bg-red-600/20 hover:border-red-500 transition-all duration-300 group"
+                            className="p-2 rounded-xl border border-white/10 hover:bg-red-600/10 hover:border-red-500/50 transition-all duration-300 group"
                             onClick={(e) => NavigateToChat(e, mentor._id)}
                           >
                             <MessageCircle className="w-5 h-5 text-gray-400 group-hover:text-red-400 transition-colors duration-300" />
                           </button>
                           <button
-                            className="px-6 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-xl hover:from-red-700 hover:to-red-800 transition-all duration-300 font-medium shadow-lg hover:shadow-red-500/25 transform hover:scale-105"
+                            className="px-6 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-all duration-300 font-medium"
                             onClick={(e) => handleButtonClick(e)}
                           >
                             Book Session
@@ -525,16 +522,12 @@ function BrowseMentor() {
               {/* Load More */}
               <div ref={loadMoreRef} className="text-center mt-8">
                 <button
-                  className="px-8 py-3 bg-gray-900 border-2 border-red-600 text-red-500 rounded-xl hover:bg-red-600 hover:text-white transition-all duration-500 font-medium shadow-lg hover:shadow-red-500/25 transform hover:scale-105 relative overflow-hidden group"
+                  className="px-8 py-3 bg-[#0a0a0a] border border-white/10 text-white rounded-xl hover:bg-red-600 hover:border-red-600 transition-all duration-500 font-medium shadow-lg transform hover:-translate-y-1 relative overflow-hidden group"
                   onClick={(e) =>
                     handleButtonClick(e, () => Setpages(pages + 1))
                   }
                 >
                   <span className="relative z-10">Load More Mentors</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-red-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-                  <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                    Load More Mentors
-                  </span>
                 </button>
               </div>
             </div>

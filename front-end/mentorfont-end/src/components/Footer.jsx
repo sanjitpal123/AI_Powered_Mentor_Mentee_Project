@@ -1,14 +1,14 @@
 function Footer() {
   return (
-    <footer className="bg-black py-12 ">
+    <footer className="bg-[#050505] border-t border-white/5 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-4 gap-8">
           {/* Brand + Description */}
           <div>
-            <div className="text-2xl font-bold bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent mb-4">
+            <div className="text-2xl font-bold text-white tracking-tight mb-4">
               MentorVault
             </div>
-            <p className="text-white mb-4">
+            <p className="text-gray-400 text-sm leading-relaxed mb-4">
               Empowering careers through world-class mentorship. Connect with
               industry legends and unlock your potential.
             </p>
@@ -97,9 +97,10 @@ function Footer() {
         </div>
 
         {/* Footer Bottom */}
-        <div className="border-t border-red-900 mt-8 pt-8 text-center text-white">
+        <div className="border-t border-white/5 mt-12 pt-8 text-center text-gray-500 text-sm">
           <p>
-            &copy; 2024 MentorVault. All rights reserved. Built with ❤️ for
+            &copy; {new Date().getFullYear()} MentorVault. All rights reserved. Built with <span className="text-red-500">❤️</span> for
+
             ambitious professionals.
           </p>
         </div>

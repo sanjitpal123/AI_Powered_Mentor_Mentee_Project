@@ -101,8 +101,8 @@ function FilterSideBar() {
       ref={sidebarRef}
       className="lg:w-80 flex-shrink-0 sticky top-8 max-h-[170vh] overflow-y-auto scrollbar-hide"
     >
-      <div className="bg-gray-900 rounded-2xl shadow-2xl border border-red-600/30 p-6 sticky top-8">
-        <button className="lg:hidden w-full flex items-center justify-between mb-4 p-3 bg-gray-800 text-white rounded-xl hover:bg-red-700/20 transition">
+      <div className="bg-[#0a0a0a] rounded-2xl shadow-xl border border-white/5 p-6 sticky top-8">
+        <button className="lg:hidden w-full flex items-center justify-between mb-4 p-3 bg-[#111111] border border-white/5 text-white rounded-xl hover:bg-white/5 transition">
           <span className="flex items-center gap-2">
             <Filter className="w-5 h-5" />
             Filters
@@ -172,27 +172,27 @@ function FilterSideBar() {
               Experience Level
             </h4>
             <select
-              className="w-full p-3 bg-gray-800 border border-gray-600 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full p-3 bg-[#111111] border border-white/10 text-white rounded-xl focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600/50 transition-colors"
               onChange={(e) => setExperience(e.target.value)}
             >
-              <option>All Levels</option>
-              <option>5+ years</option>
-              <option>8+ years</option>
-              <option>10+ years</option>
-              <option>15+ years</option>
+              <option className="bg-[#0a0a0a]">All Levels</option>
+              <option className="bg-[#0a0a0a]">5+ years</option>
+              <option className="bg-[#0a0a0a]">8+ years</option>
+              <option className="bg-[#0a0a0a]">10+ years</option>
+              <option className="bg-[#0a0a0a]">15+ years</option>
             </select>
           </div>
 
           {/* Location */}
           <div className="mb-6">
             <h4 className="font-semibold mb-4 text-red-500">Location</h4>
-            <select className="w-full p-3 bg-gray-800 border border-gray-600 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500">
-              <option>All Locations</option>
-              <option>Remote</option>
-              <option>San Francisco, CA</option>
-              <option>New York, NY</option>
-              <option>Seattle, WA</option>
-              <option>Austin, TX</option>
+            <select className="w-full p-3 bg-[#111111] border border-white/10 text-white rounded-xl focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600/50 transition-colors">
+              <option className="bg-[#0a0a0a]">All Locations</option>
+              <option className="bg-[#0a0a0a]">Remote</option>
+              <option className="bg-[#0a0a0a]">San Francisco, CA</option>
+              <option className="bg-[#0a0a0a]">New York, NY</option>
+              <option className="bg-[#0a0a0a]">Seattle, WA</option>
+              <option className="bg-[#0a0a0a]">Austin, TX</option>
             </select>
           </div>
         </div>

@@ -167,17 +167,16 @@ export default function MentorDashboard() {
               ].map((mentee, i) => (
                 <div
                   key={i}
-                  className="group relative overflow-hidden bg-gradient-to-br from-gray-900/90 to-black/70 p-6 rounded-2xl border border-red-500/30 hover:border-red-400/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-red-500/25"
+                  className="group relative overflow-hidden bg-[#0a0a0a] p-6 rounded-2xl border border-white/5 hover:border-red-500/30 transition-all duration-500 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-red-500/10"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-red-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <div className="relative z-10">
                     <div className="flex items-center justify-between mb-4">
                       <div
-                        className={`px-3 py-1 rounded-full text-xs font-medium ${
-                          mentee.status === "active"
+                        className={`px-3 py-1 rounded-full text-xs font-medium ${mentee.status === "active"
                             ? "bg-green-600/20 text-green-300 border border-green-500/30"
                             : "bg-blue-600/20 text-blue-300 border border-blue-500/30"
-                        }`}
+                          }`}
                       >
                         {mentee.status.toUpperCase()}
                       </div>
@@ -299,9 +298,9 @@ export default function MentorDashboard() {
               ].map((metric, i) => (
                 <div
                   key={i}
-                  className="group relative overflow-hidden bg-gradient-to-br from-gray-900/90 to-black/70 p-6 rounded-2xl border border-red-500/30 hover:border-red-400/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-red-500/25"
+                  className="group relative overflow-hidden bg-[#0a0a0a] p-6 rounded-2xl border border-white/5 hover:border-red-500/30 transition-all duration-500 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-red-500/10"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-red-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <div className="relative z-10">
                     <div
                       className={`w-12 h-12 bg-gradient-to-r ${metric.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
@@ -325,22 +324,22 @@ export default function MentorDashboard() {
 
             {/* Charts Placeholder */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="bg-gradient-to-br from-gray-900/90 to-black/70 p-6 rounded-2xl border border-red-500/30">
+              <div className="bg-[#0a0a0a] p-6 rounded-2xl border border-white/5">
                 <h3 className="text-xl font-bold text-white mb-4">
                   Session Trends
                 </h3>
-                <div className="h-64 bg-gradient-to-br from-red-600/10 to-transparent rounded-xl flex items-center justify-center">
-                  <p className="text-gray-400">
+                <div className="h-64 bg-[#050505] rounded-xl border border-white/5 flex items-center justify-center">
+                  <p className="text-gray-500">
                     Chart visualization would go here
                   </p>
                 </div>
               </div>
-              <div className="bg-gradient-to-br from-gray-900/90 to-black/70 p-6 rounded-2xl border border-red-500/30">
+              <div className="bg-[#0a0a0a] p-6 rounded-2xl border border-white/5">
                 <h3 className="text-xl font-bold text-white mb-4">
                   Rating Distribution
                 </h3>
-                <div className="h-64 bg-gradient-to-br from-red-600/10 to-transparent rounded-xl flex items-center justify-center">
-                  <p className="text-gray-400">
+                <div className="h-64 bg-[#050505] rounded-xl border border-white/5 flex items-center justify-center">
+                  <p className="text-gray-500">
                     Chart visualization would go here
                   </p>
                 </div>
@@ -508,14 +507,12 @@ export default function MentorDashboard() {
                   >
                     <span className="text-white">{setting.label}</span>
                     <button
-                      className={`w-12 h-6 rounded-full transition-all duration-300 ${
-                        setting.enabled ? "bg-red-600" : "bg-gray-600"
-                      }`}
+                      className={`w-12 h-6 rounded-full transition-all duration-300 ${setting.enabled ? "bg-red-600" : "bg-gray-600"
+                        }`}
                     >
                       <div
-                        className={`w-5 h-5 bg-white rounded-full transition-transform duration-300 ${
-                          setting.enabled ? "translate-x-6" : "translate-x-1"
-                        }`}
+                        className={`w-5 h-5 bg-white rounded-full transition-transform duration-300 ${setting.enabled ? "translate-x-6" : "translate-x-1"
+                          }`}
                       ></div>
                     </button>
                   </div>
@@ -539,10 +536,10 @@ export default function MentorDashboard() {
   return (
     <div className="flex h-screen bg-black text-white overflow-hidden">
       {/* Enhanced Sidebar */}
-      <div className="w-72 bg-gradient-to-b from-red-900 via-red-800 to-red-900 flex flex-col justify-between shadow-2xl shadow-red-500/20">
+      <div className="w-72 bg-[#0a0a0a] border-r border-white/5 flex flex-col justify-between">
         <div>
           {/* Enhanced Profile Section */}
-          <div className="p-8 text-center border-b bg-gradient-to-br from-red-900/40 via-red-800/30 to-black/50">
+          <div className="p-8 text-center border-b border-white/5 bg-[#050505]">
             <div className="relative inline-block mb-4">
               <img
                 src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=120&h=120"
@@ -582,11 +579,10 @@ export default function MentorDashboard() {
             ].map((item) => (
               <button
                 key={item.id}
-                className={`flex items-center gap-4 px-6 py-4 w-full text-left rounded-2xl font-medium transition-all duration-300 hover:scale-105 ${
-                  activeTab === item.id
+                className={`flex items-center gap-4 px-6 py-4 w-full text-left rounded-2xl font-medium transition-all duration-300 hover:scale-105 ${activeTab === item.id
                     ? "bg-gradient-to-r from-red-700 to-red-600 text-white shadow-lg shadow-red-500/30 border border-red-400/30"
                     : "text-red-100 hover:bg-red-700/30 hover:text-white"
-                }`}
+                  }`}
                 onClick={() => setActiveTab(item.id)}
               >
                 <item.icon size={20} />
@@ -609,8 +605,8 @@ export default function MentorDashboard() {
         </div>
 
         {/* Enhanced Logout Section */}
-        <div className="p-6 border-t border-red-400/30 bg-gradient-to-br from-red-900/40 via-red-800/30 to-black/50">
-          <button className="flex items-center gap-4 w-full text-left text-red-200 hover:text-white transition-all duration-300 hover:scale-105 px-4 py-3 rounded-xl hover:bg-red-700/30">
+        <div className="p-6 border-t border-white/5 bg-[#050505]">
+          <button className="flex items-center gap-4 w-full text-left text-gray-400 hover:text-red-500 transition-all duration-300 hover:scale-105 px-4 py-3 rounded-xl hover:bg-white/5">
             <LogOut size={20} />
             <span className="font-medium">Logout</span>
           </button>
@@ -619,7 +615,7 @@ export default function MentorDashboard() {
 
       {/* Enhanced Main Content */}
       <div className="flex-1 overflow-hidden">
-        <div className="h-full overflow-y-auto bg-gradient-to-br from-gray-950 via-black to-gray-900">
+        <div className="h-full overflow-y-auto bg-[#050505]">
           <div className="p-8">{renderContent()}</div>
         </div>
       </div>

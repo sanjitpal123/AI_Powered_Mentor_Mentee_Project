@@ -1,3 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+html {
+  scroll-behavior: smooth;
+  background-color: #050505; /* Deep black bg */
+  color: #f3f4f6; /* Light gray text */
+  font-family: 'Outfit', sans-serif;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
 }

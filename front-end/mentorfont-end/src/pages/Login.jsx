@@ -52,14 +52,14 @@ export default function Login() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-gray-100 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[#050505] flex items-center justify-center px-4">
       <motion.div
-        className="w-full max-w-sm bg-white p-8 rounded-xl shadow-2xl border"
+        className="w-full max-w-md bg-[#0a0a0a] p-8 sm:p-10 rounded-2xl shadow-2xl border border-white/5"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
+        <h2 className="text-3xl font-bold text-center text-white mb-8 tracking-tight">
           Sign In
         </h2>
 
@@ -69,7 +69,7 @@ export default function Login() {
               {...register("email")}
               type="email"
               placeholder="Email"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-400"
+              className="w-full bg-[#050505] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600/50 transition-colors"
             />
             <p className="text-red-500 text-sm mt-1">{errors.email?.message}</p>
           </div>
@@ -79,7 +79,7 @@ export default function Login() {
               {...register("password")}
               type="password"
               placeholder="Password"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-400"
+              className="w-full bg-[#050505] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600/50 transition-colors"
             />
             <p className="text-red-500 text-sm mt-1">
               {errors.password?.message}
@@ -89,33 +89,33 @@ export default function Login() {
           <motion.button
             whileTap={{ scale: 0.95 }}
             type="submit"
-            className="w-full bg-black hover:bg-red-700 transition text-white font-semibold py-2 rounded-lg shadow-md"
+            className="w-full bg-red-600 hover:bg-red-700 transition-colors text-white font-medium py-3 rounded-xl shadow-lg"
           >
             Sign In
           </motion.button>
         </form>
 
-        <p className="text-center text-sm mt-4 text-gray-600">
+        <p className="text-center text-sm mt-6 text-gray-400">
           Don't have an account?{" "}
-          <Link to="/register" className="text-red-600 font-medium">
+          <Link to="/register" className="text-red-500 font-medium hover:text-red-400 transition-colors">
             Sign Up
           </Link>
         </p>
 
         <div className="flex items-center my-6">
-          <div className="flex-grow h-px bg-gray-300"></div>
-          <span className="px-3 text-sm text-gray-400">or</span>
-          <div className="flex-grow h-px bg-gray-300"></div>
+          <div className="flex-grow h-px bg-white/5"></div>
+          <span className="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">or</span>
+          <div className="flex-grow h-px bg-white/5"></div>
         </div>
 
         <motion.button
-          whileHover={{ scale: 1.03 }}
-          className="w-full flex items-center justify-center border border-gray-300 rounded-lg py-2 text-sm font-medium bg-white hover:bg-gray-100 transition"
+          whileHover={{ scale: 1.02 }}
+          className="w-full flex items-center justify-center border border-white/10 rounded-xl py-3 text-sm font-medium text-white bg-white/5 hover:bg-white/10 transition-all"
         >
           <img
             src="https://www.svgrepo.com/show/475656/google-color.svg"
             alt="Google logo"
-            className="w-5 h-5 mr-2"
+            className="w-5 h-5 mr-3"
           />
           Sign in with Google
         </motion.button>

@@ -590,9 +590,9 @@ const MenteeDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-black to-gray-900 relative overflow-hidden">
+    <div className="min-h-screen bg-[#050505] relative overflow-hidden">
       {/* Animated Background Elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+      <div className="fixed inset-0 overflow-hidden pointer-events-none hidden">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-500/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/8 rounded-full blur-3xl animate-pulse animation-delay-1000"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
@@ -609,7 +609,7 @@ const MenteeDashboard = () => {
       <div className="relative z-10 max-w-8xl mx-auto p-4 lg:p-8 animate-fade-in">
         {/* Top Navigation Bar */}
         <div className="mb-8 animate-slide-down">
-          <div className="bg-gray-900/90 backdrop-blur-xl rounded-2xl border border-gray-800/60 p-4 shadow-2xl hover:shadow-red-500/10 transition-all duration-500">
+          <div className="bg-[#0a0a0a] rounded-2xl border border-white/5 p-4 shadow-xl hover:shadow-red-500/10 transition-all duration-500">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-6">
                 <div className="flex items-center gap-3">
@@ -681,9 +681,9 @@ const MenteeDashboard = () => {
 
         {/* Enhanced Header Profile */}
         <div className="mb-8 animate-slide-up">
-          <div className="bg-gradient-to-r from-gray-900/95 via-red-900/25 to-gray-900/95 backdrop-blur-xl rounded-3xl border border-gray-800/60 p-8 relative overflow-hidden shadow-2xl hover:shadow-red-500/10 transition-all duration-500">
-            <div className="absolute inset-0 bg-gradient-to-r from-red-500/10 to-transparent opacity-50"></div>
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 via-red-600 to-red-500"></div>
+          <div className="bg-[#0a0a0a] rounded-3xl border border-white/5 p-8 relative overflow-hidden shadow-xl hover:shadow-red-500/10 transition-all duration-500">
+            <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 to-transparent opacity-50"></div>
+            <div className="absolute top-0 left-0 w-full h-1 bg-red-600"></div>
 
             <div className="relative z-10">
               <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8">
@@ -824,11 +824,10 @@ const MenteeDashboard = () => {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex-1 flex items-center justify-center gap-2 py-4 px-6 rounded-xl font-semibold transition-all duration-300 hover:scale-105 group ${
-                      activeTab === tab.id
+                    className={`flex-1 flex items-center justify-center gap-2 py-4 px-6 rounded-xl font-semibold transition-all duration-300 hover:scale-105 group ${activeTab === tab.id
                         ? "bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg shadow-red-500/30 hover:shadow-red-500/40"
                         : "text-gray-400 hover:text-white hover:bg-gray-800/60"
-                    }`}
+                      }`}
                   >
                     <IconComponent
                       size={18}
@@ -844,9 +843,8 @@ const MenteeDashboard = () => {
 
         {/* Tab Content */}
         <div
-          className={`transition-all duration-500 ${
-            activeTab ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
+          className={`transition-all duration-500 ${activeTab ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
         >
           {activeTab === "overview" && (
             <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
@@ -1195,13 +1193,12 @@ const MenteeDashboard = () => {
                         >
                           <div className="flex items-center justify-between mb-3">
                             <StatusIcon
-                              className={`${
-                                goal.status === "Completed"
+                              className={`${goal.status === "Completed"
                                   ? "text-green-400"
                                   : goal.status === "In Progress"
-                                  ? "text-blue-400"
-                                  : "text-gray-500"
-                              } group-hover/goal:scale-110 transition-transform duration-300`}
+                                    ? "text-blue-400"
+                                    : "text-gray-500"
+                                } group-hover/goal:scale-110 transition-transform duration-300`}
                               size={18}
                             />
                             <span
@@ -1260,13 +1257,12 @@ const MenteeDashboard = () => {
                       return (
                         <div
                           key={badge.id}
-                          className={`relative text-center p-4 rounded-xl transition-all duration-300 hover:scale-110 border cursor-pointer group/badge ${
-                            badge.earned
+                          className={`relative text-center p-4 rounded-xl transition-all duration-300 hover:scale-110 border cursor-pointer group/badge ${badge.earned
                               ? `bg-gradient-to-br ${getBadgeRarityColor(
-                                  badge.rarity
-                                )} shadow-lg hover:shadow-xl`
+                                badge.rarity
+                              )} shadow-lg hover:shadow-xl`
                               : "bg-gray-800/40 border-gray-700/60 text-gray-500 hover:bg-gray-800/60"
-                          }`}
+                            }`}
                           style={{ animationDelay: `${index * 100}ms` }}
                         >
                           <IconComponent
@@ -1354,13 +1350,12 @@ const MenteeDashboard = () => {
                           {path.title}
                         </h3>
                         <span
-                          className={`px-3 py-2 rounded-lg text-xs font-bold border hover:scale-105 transition-transform duration-200 ${
-                            path.difficulty === "Expert"
+                          className={`px-3 py-2 rounded-lg text-xs font-bold border hover:scale-105 transition-transform duration-200 ${path.difficulty === "Expert"
                               ? "bg-red-600/30 text-red-400 border-red-500/40"
                               : path.difficulty === "Advanced"
-                              ? "bg-yellow-600/30 text-yellow-400 border-yellow-500/40"
-                              : "bg-green-600/30 text-green-400 border-green-500/40"
-                          }`}
+                                ? "bg-yellow-600/30 text-yellow-400 border-yellow-500/40"
+                                : "bg-green-600/30 text-green-400 border-green-500/40"
+                            }`}
                         >
                           {path.difficulty}
                         </span>

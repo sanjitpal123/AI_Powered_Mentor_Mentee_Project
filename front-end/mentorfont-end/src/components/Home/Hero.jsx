@@ -37,12 +37,11 @@ function HeroSection() {
   return (
     <section
       ref={sectionRef}
-      className="bg-black text-white py-24 relative overflow-hidden"
+      className="bg-[#050505] text-white py-32 relative overflow-hidden"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-red-800/10 via-red-700/10 to-black/20 pointer-events-none"></div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center">
-          <div className="inline-flex items-center bg-red-900/30 border border-red-700/30 rounded-full px-6 py-2 mb-8 shadow-md">
+          <div className="inline-flex items-center bg-[#0a0a0a] border border-white/5 hover:border-red-500/30 transition-colors rounded-full px-6 py-2 mb-8">
             <svg
               className="w-4 h-4 text-red-500 mr-2"
               fill="currentColor"
@@ -54,19 +53,19 @@ function HeroSection() {
                 clipRule="evenodd"
               />
             </svg>
-            <span className="text-red-300 text-sm font-medium">
+            <span className="text-gray-300 text-sm font-medium">
               Join 50,000+ professionals accelerating their careers
             </span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight text-white">
+          <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-tight text-white tracking-tighter">
             Unlock Your Career{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-red-600 to-red-700">
+            <span className="text-red-600">
               Potential
             </span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed">
             Connect with world-class mentors from Google, Meta, Netflix & more.
             Get personalized 1:1 guidance that transforms careers and
             accelerates success.

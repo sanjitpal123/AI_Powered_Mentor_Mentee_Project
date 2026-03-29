@@ -53,10 +53,10 @@ const AiDoubtSolverUI = () => {
     executeScroll();
   }, [messages]);
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-[#050505] text-white">
       <div className="flex flex-col h-screen max-w-4xl mx-auto">
         {/* Header */}
-        <header className="p-6 border-b border-gray-800">
+        <header className="p-6 border-b border-white/5">
           <div className="flex items-center space-x-4">
             <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center">
               <Brain className="w-6 h-6 text-white" />
@@ -75,18 +75,16 @@ const AiDoubtSolverUI = () => {
           {messages?.map((message) => (
             <div
               key={message.id}
-              className={`flex items-start space-x-4 ${
-                message.type === "user"
+              className={`flex items-start space-x-4 ${message.type === "user"
                   ? "flex-row-reverse space-x-reverse"
                   : ""
-              }`}
+                }`}
             >
               <div
-                className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                  message.type === "user"
+                className={`w-10 h-10 shrink-0 rounded-full flex items-center justify-center ${message.type === "user"
                     ? "bg-red-600"
-                    : "bg-gray-700 border border-red-600"
-                }`}
+                    : "bg-[#111111] border border-white/10"
+                  }`}
               >
                 {message.type === "user" ? (
                   <Bot className="w-5 h-5 text-white" />
@@ -96,17 +94,15 @@ const AiDoubtSolverUI = () => {
               </div>
 
               <div
-                className={`max-w-md ${
-                  message.type === "user" ? "ml-auto" : "mr-auto"
-                }`}
+                className={`max-w-md ${message.type === "user" ? "ml-auto" : "mr-auto"
+                  }`}
                 ref={myRef}
               >
                 <div
-                  className={`px-4 py-3 rounded-2xl ${
-                    message.type === "user"
-                      ? "bg-red-600 text-white"
-                      : "bg-gray-800 border border-gray-700 text-gray-100"
-                  }`}
+                  className={`px-4 py-3 rounded-2xl ${message.type === "user"
+                      ? "bg-red-600 text-white shadow-md shadow-red-900/20"
+                      : "bg-[#111111] border border-white/10 text-gray-200"
+                    }`}
                 >
                   <p className="text-sm leading-relaxed">{message.message}</p>
                 </div>
@@ -116,13 +112,13 @@ const AiDoubtSolverUI = () => {
         </div>
 
         {/* Input */}
-        <div className="p-6 border-t border-gray-800">
+        <div className="p-6 border-t border-white/5 bg-[#050505] pb-8">
           <div className="flex items-end space-x-4">
             <div className="flex-1">
               <textarea
-                placeholder="Ask me about mentoring strategies..."
+                placeholder="Ask me anything..."
                 rows="1"
-                className="w-full bg-gray-800 border border-gray-700 focus:border-red-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 resize-none focus:outline-none"
+                className="w-full bg-[#0a0a0a] border border-white/10 focus:border-red-600 focus:ring-1 focus:ring-red-600/50 rounded-xl px-4 py-3 text-white placeholder-gray-500 resize-none focus:outline-none transition-colors overflow-hidden"
                 style={{ minHeight: "48px" }}
                 value={Query}
                 onChange={(e) => setQuery(e.target.value)}

@@ -42,17 +42,17 @@ function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-[#050505] text-white">
       <HeroSection />
       <FeaturedMentor />
 
       {/* Success Steps Section */}
-      <section className="py-20 bg-black">
+      <section className="py-24 bg-[#050505] border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-4 text-white">
+          <h2 className="text-4xl font-bold mb-4 text-white tracking-tight">
             Your Success Journey
           </h2>
-          <p className="text-red-500 mb-16 text-xl">
+          <p className="text-gray-400 mb-16 text-lg">
             Transform your career in 3 powerful steps
           </p>
 
@@ -66,7 +66,7 @@ function HomePage() {
                 key={i}
                 className="bg-white/5 rounded-2xl p-8 border border-white/10 shadow-xl"
               >
-                <div className="w-16 h-16 rounded-full bg-red-600 mx-auto mb-6 flex items-center justify-center text-white text-2xl font-bold">
+                <div className="w-16 h-16 rounded-full bg-red-600/10 text-red-500 mx-auto mb-6 flex items-center justify-center text-2xl font-bold">
                   {i + 1}
                 </div>
                 <h3 className="text-xl font-semibold mb-3 text-white">
@@ -87,12 +87,12 @@ function HomePage() {
       </section>
 
       {/* Career Paths */}
-      <section className="py-20 bg-black">
+      <section className="py-24 bg-[#050505] border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-4 text-white">
+          <h2 className="text-4xl font-bold mb-4 text-white tracking-tight">
             Explore Career Paths
           </h2>
-          <p className="text-xl text-red-500 mb-16">
+          <p className="text-lg text-gray-400 mb-16">
             Find expert mentors across the most in-demand fields
           </p>
 
@@ -120,12 +120,12 @@ function HomePage() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 bg-gradient-to-b from-black via-gray-900 to-black">
+      <section className="py-24 bg-[#050505] border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-white mb-4">
+          <h2 className="text-4xl font-bold text-white mb-4 tracking-tight">
             Life-Changing Results
           </h2>
-          <p className="text-red-500 mb-16 text-xl">
+          <p className="text-gray-400 mb-16 text-lg">
             Real stories from professionals who transformed their careers
           </p>
 
@@ -157,19 +157,19 @@ function HomePage() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-24 bg-gradient-to-r from-black to-red-900 text-center">
-        <h2 className="text-5xl font-bold text-white mb-6">
+      <section className="py-32 bg-[#050505] text-center border-t border-white/5">
+        <h2 className="text-5xl font-bold text-white mb-6 tracking-tight">
           Ready to 10x Your Career?
         </h2>
-        <p className="text-xl text-white/70 mb-10 max-w-2xl mx-auto">
+        <p className="text-lg text-gray-400 mb-10 max-w-2xl mx-auto">
           Join 50,000+ professionals accelerating their careers through expert
           mentorship.
         </p>
-        <div className="flex justify-center gap-6 flex-wrap">
-          <button className="bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold px-10 py-4 rounded-xl hover:scale-105 transition shadow-lg">
+        <div className="flex justify-center gap-4 flex-wrap">
+          <button className="bg-red-600 text-white font-medium px-8 py-3.5 rounded-full hover:bg-red-700 hover:scale-105 transition-all">
             Start Your Journey
           </button>
-          <button className="border border-white text-white px-10 py-4 rounded-xl hover:bg-white hover:text-black transition">
+          <button className="border border-white/20 text-white hover:border-white px-8 py-3.5 rounded-full hover:bg-white/5 transition-all">
             Become a Mentor
           </button>
         </div>
