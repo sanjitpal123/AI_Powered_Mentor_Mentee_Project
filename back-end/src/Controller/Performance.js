@@ -102,5 +102,5 @@ export const getPerformanceOfAllMenteeInATask = async (req, res) => {
       });
     }
     return res.status(201).json(respose);
-  } catch (error) {}
+  } catch (error) { }
 };

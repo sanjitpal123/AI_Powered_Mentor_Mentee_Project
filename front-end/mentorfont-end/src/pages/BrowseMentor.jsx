@@ -1,45 +1,31 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
-import {
-  Search,
-  Filter,
-  Star,
-  MapPin,
-  Clock,
-  DollarSign,
-  Users,
-  Code,
-  Briefcase,
-  Palette,
-  ChevronDown,
-  Heart,
-  MessageCircle,
-} from "lucide-react";
-import HeroSection from "../components/Home/Hero";
-import GetAllMentosService from "../services/GetAllmentors";
-import FilterSideBar from "../components/BrowseMentor/FilterSideBar";
-import { GlobalContext } from "../ContextApiStore/ContextStore";
-import LowToHighFiltering from "../services/Lowtohigh";
-
+import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
+
+import HeroSection from "../components/Home/Hero";
+import FilterSideBar from "../components/BrowseMentor/FilterSideBar";
+import { MentorCard } from "../components/BrowseMentor/MentorCard";
+
+import { GlobalContext } from "../ContextApiStore/ContextStore";
+import GetAllMentosService from "../services/GetAllmentors";
+import LowToHighFiltering from "../services/Lowtohigh";
 import WishListSer from "../services/AddToWishList";
-import { Link, useNavigate } from "react-router-dom";
 import { CreateConvo } from "../services/Convo";
 import { socket } from "../utils/socket";
-import CreatePayment from "../services/Payment";
+import { ProcessTransaction } from "../utils/transactionUtils";
+
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
 function BrowseMentor() {
   const navigate = useNavigate();
-  const { User, setSUser, Suser, GetMenteeProfile } = useContext(GlobalContext);
-  const { filterMentors, Setpages, pages } = useContext(GlobalContext);
+  const { User, setSUser, Suser, GetMenteeProfile, filterMentors, Setpages, pages } = useContext(GlobalContext);
   const [mentors, setMentos] = useState([]);
   const [FilterByLowToHigh, setFilterByLowToHigh] = useState("");
   const [LowToHighData, setLowToHighData] = useState([]);
   const [isWishListed, setisWishListed] = useState(null);
-  const LoginUser = JSON.parse(localStorage.getItem("user"));
 
   // Refs for animations
   const containerRef = useRef(null);
@@ -53,12 +39,11 @@ function BrowseMentor() {
       const res = await GetAllMentosService();
       setMentos(res);
     } catch (error) {
-      console.log("error");
+      console.log("error fetching mentors");
     }
   }
 
   function handleSelectChange(e) {
-    // Animate dropdown selection
     gsap.to(e.target, {
       scale: 0.98,
       duration: 0.1,
@@ -66,8 +51,6 @@ function BrowseMentor() {
       repeat: 1,
       ease: "power2.out",
     });
-
-    console.log("er", e.target.value);
     setFilterByLowToHigh(e.target.value);
   }
 
@@ -80,35 +63,25 @@ function BrowseMentor() {
       const res = await LowToHighFiltering();
       setLowToHighData(res);
     } catch (error) {
-      console.log("error", error);
+      console.log("error filtering", error);
     }
   }
 
   useEffect(() => {
-    if (FilterByLowToHigh == "Price: Low to High") {
+    if (FilterByLowToHigh === "Price: Low to High") {
       FilterLowToHigh();
-      console.log("low", LowToHighData);
     }
   }, [FilterByLowToHigh]);
 
   const filteredMentors = filterMentors.length > 0 ? filterMentors : mentors;
   const Lowtohigh = LowToHighData.length > 0 ? LowToHighData : filteredMentors;
 
-  useEffect(() => {
-    console.log("low", Lowtohigh);
-  }, [LowToHighData]);
-
   // Initial page animations
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Smooth scrolling
-      gsap.to("html", {
-        scrollBehavior: "smooth",
-      });
+      gsap.to("html", { scrollBehavior: "smooth" });
 
-      // Initial load animation
       const tl = gsap.timeline();
-
       tl.fromTo(
         containerRef.current,
         { opacity: 0 },
@@ -138,11 +111,7 @@ function BrowseMentor() {
       if (cards) {
         gsap.fromTo(
           cards,
-          {
-            y: 80,
-            opacity: 0,
-            scale: 0.9,
-          },
+          { y: 80, opacity: 0, scale: 0.9 },
           {
             y: 0,
             opacity: 1,
@@ -161,176 +130,53 @@ function BrowseMentor() {
     }
   }, [Lowtohigh]);
 
-  // Button click animation
   const handleButtonClick = async (e, mentorid) => {
-    // const button = e.currentTarget;
+    if (!mentorid) return;
     try {
       const user = JSON.parse(localStorage.getItem("user"));
-      console.log("token before action to add fav", user);
-      console.log("mentorid before action to add fav", mentorid);
-
-      const res = await WishListSer(mentorid, user.token);
+      const res = await WishListSer(mentorid, user?.token);
       setisWishListed(res);
-      console.log("wishlisted", res);
     } catch (error) {
-      console.log("error", error);
+      console.log("error adding to wishlist", error);
     }
-    // gsap.to(button, {
-    //   scale: 0.95,
-    //   duration: 0.1,
-    //   ease: "power2.out",
-    //   onComplete: () => {
-    //     gsap.to(button, {
-    //       scale: 1,
-    //       duration: 0.1,
-    //       ease: "power2.out",
-    //     });
-    //   },
-    // });
-
-    // const ripple = document.createElement("span");
-    // const rect = button.getBoundingClientRect();
-    // const size = Math.max(rect.width, rect.height);
-    // const x = e.clientX - rect.left - size / 2;
-    // const y = e.clientY - rect.top - size / 2;
-
-    // ripple.style.cssText = `
-    //   position: absolute;
-    //   width: ${size}px;
-    //   height: ${size}px;
-    //   left: ${x}px;
-    //   top: ${y}px;
-    //   background: rgba(239, 68, 68, 0.3);
-    //   border-radius: 50%;
-    //   transform: scale(0);
-    //   pointer-events: none;
-    // `;
-
-    // button.style.position = "relative";
-    // button.style.overflow = "hidden";
-    // button.appendChild(ripple);
-
-    // gsap.to(ripple, {
-    //   scale: 2,
-    //   opacity: 0,
-    //   duration: 0.6,
-    //   ease: "power2.out",
-    //   onComplete: () => ripple.remove(),
-    // });
-
-    // if (callback) callback();
   };
 
-  // create convo and navigate to chat
-
-  // before navigate to chat we should conform that user paid
-
-  async function Transaction(e, res) {
-    e.preventDefault();
-
+  const NavigateToChat = async (e, mentorId) => {
     try {
-      const data = {
-        amount: 500,
-        currency: "INR",
-        receipt: "lsd212",
-      };
-      const res = await CreatePayment(data);
-
-      console.log("resonse to pay ", res);
-
-      var options = {
-        key: "rzp_test_RPjlXkYi5KcmkQ", // Enter the Key ID generated from the Dashboard
-        amount: data.amount, // Amount is in currency subunits.
-        currency: data.currency,
-        name: "Acme Corp", //your business name
-        description: "Test Transaction",
-        image: "https://example.com/your_logo",
-        order_id: res.order.id || res.order._id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        handler: function (response) {
-          alert(response.razorpay_payment_id);
-          alert(response.razorpay_order_id);
-          alert(response.razorpay_signature);
-        },
-        prefill: {
-          //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
-          name: "sanjit Kumar", //your customer's name
-          email: "gaurav.kumar@example.com",
-          contact: "+928848488382", //Provide the customer's phone number for better conversion rates
-        },
-        notes: {
-          address: "Razorpay Corporate Office",
-        },
-        theme: {
-          color: "#E43737",
-        },
-      };
-      var rzp1 = new window.Razorpay(options);
-      rzp1.on("payment.failed", function (response) {
-        alert(response.error.code);
-        alert(response.error.description);
-        alert(response.error.source);
-        alert(response.error.step);
-        alert(response.error.reason);
-        alert(response.error.metadata.order_id);
-        alert(response.error.metadata.payment_id);
-      });
-      rzp1.open();
-      if (res.status) {
-        navigate(`/chat/${res.generateConvo._id}`);
+      const user = JSON.parse(localStorage.getItem("user"));
+      const res = await CreateConvo(mentorId, user?.token);
+      ProcessTransaction(e, res, navigate);
+    } catch (error) {
+      console.log("error creating convo", error);
+      if (error?.response?.data?.existed?._id) {
+        navigate(`/chat/${error.response.data.existed._id}`);
       }
-    } catch (error) {
-      console.log("error to pay money", error);
     }
-  }
-
-  const user = JSON.parse(localStorage.getItem("user"));
-  async function NavigateToChat(e, mentorId) {
-    try {
-      const res = await CreateConvo(mentorId, user.token);
-      console.log("responsive while creating convo in navigatetochat");
-      Transaction(e, res);
-    } catch (error) {
-      console.log("error in responsive while creating", error);
-
-      navigate(`/chat/${error.response.data.existed._id}`);
-    }
-  }
+  };
 
   useEffect(() => {
-    const handleStatusUpdate = () => {
-      console.log("status is updated from mentor");
-    };
-    const handleTaskNotification = () => {
-      console.log("status is updated from mentor");
-    };
+    const handleStatusUpdate = () => console.log("status updated");
+    const handleTaskNotification = () => console.log("task updated");
 
-    // attach socket listener
     socket.on("StatusUpdateOfSession", handleStatusUpdate);
-
-    // listen for task
     socket.on("NotifyingAboutTask", handleTaskNotification);
 
-    // start timer
-
-    // cleanup both socket listener & timer
     return () => {
       socket.off("StatusUpdateOfSession", handleStatusUpdate);
       socket.off("NotifyingAboutTask", handleTaskNotification);
     };
-  }, [socket]);
+  }, []);
 
   useEffect(() => {
     GetMenteeProfile();
     MentorFetch();
-    console.log("user", Suser);
   }, [isWishListed]);
 
   return (
     <div ref={containerRef} className="min-h-screen bg-[#050505]">
-      {/* Header Banner */}
       <HeroSection />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col lg:flex-row  gap-8">
+        <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar */}
           <div ref={sidebarRef} className="w-[20%]">
             <FilterSideBar />
@@ -338,7 +184,7 @@ function BrowseMentor() {
 
           {/* Main Content */}
           <div className="flex flex-row ml-[10%] w-[80%] max-h-[180vh] overflow-x-scroll scrollbar-hidden">
-            <div className="">
+            <div className="w-full">
               {/* Results Header */}
               <div
                 ref={headerRef}
@@ -350,9 +196,7 @@ function BrowseMentor() {
                       {mentors.length} mentors available
                     </span>
                   </h2>
-                  <p className="text-gray-400">
-                    Showing results for all mentors
-                  </p>
+                  <p className="text-gray-400">Showing results for all mentors</p>
                 </div>
                 <div className="mt-4 sm:mt-0">
                   <select
@@ -360,162 +204,25 @@ function BrowseMentor() {
                     value={FilterByLowToHigh}
                     onChange={handleSelectChange}
                   >
-                    <option className="bg-gray-900 text-white">
-                      Sort by: Recommended
-                    </option>
-                    <option className="bg-[#050505] text-white">
-                      Highest Rated
-                    </option>
-                    <option className="bg-[#050505] text-white">
-                      Most Reviews
-                    </option>
-                    <option className="bg-[#050505] text-white">
-                      Price: Low to High
-                    </option>
-                    <option className="bg-[#050505] text-white">
-                      Price: High to Low
-                    </option>
+                    <option className="bg-gray-900 text-white">Sort by: Recommended</option>
+                    <option className="bg-[#050505] text-white">Highest Rated</option>
+                    <option className="bg-[#050505] text-white">Most Reviews</option>
+                    <option className="bg-[#050505] text-white">Price: Low to High</option>
+                    <option className="bg-[#050505] text-white">Price: High to Low</option>
                   </select>
                 </div>
               </div>
 
               {/* Mentor Cards Grid */}
-              <div
-                ref={cardsRef}
-                className="grid grid-cols-1 md:grid-cols-2 gap-6"
-              >
-                {Lowtohigh?.map((mentor, index) => (
-                  <div
-                    key={mentor.id}
-                    className="bg-[#0a0a0a] rounded-2xl shadow-xl hover:shadow-red-500/10 transition-all duration-500 overflow-hidden group border border-white/5 hover:border-red-500/30 transform hover:-translate-y-1"
-                    onMouseEnter={(e) => {
-                      gsap.to(e.currentTarget, {
-                        boxShadow: "0 10px 30px -10px rgba(239, 68, 68, 0.15)",
-                        duration: 0.3,
-                        ease: "power2.out",
-                      });
-                    }}
-                    onMouseLeave={(e) => {
-                      gsap.to(e.currentTarget, {
-                        boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
-                        duration: 0.3,
-                        ease: "power2.out",
-                      });
-                    }}
-                  >
-                    <div className="p-6 relative">
-                      {/* Animated gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-red-600/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                      {/* Header */}
-                      <div className="flex items-start gap-4 mb-4 relative z-10">
-                        <div className="relative flex-shrink-0">
-                          <img
-                            src={mentor?.avatar}
-                            alt={mentor?.name}
-                            className="w-16 h-16 rounded-full object-cover ring-2 ring-white/10 transition-all duration-300 group-hover:ring-red-500/50"
-                          />
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="text-xl font-bold text-white mb-1 group-hover:text-red-400 transition-colors duration-300">
-                            {mentor?.name}
-                          </h3>
-                          <p className="text-gray-400 text-sm mb-2 group-hover:text-gray-300 transition-colors duration-300">
-                            {mentor?.title}
-                          </p>
-                          <div className="flex items-center gap-2 text-sm">
-                            <div className="flex items-center gap-1">
-                              <Star className="w-4 h-4 fill-red-500 text-red-500 animate-pulse" />
-                              <span className="font-semibold text-white">
-                                {mentor?.rating}
-                              </span>
-                              <span className="text-gray-400">
-                                ({mentor?.reviews} reviews)
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <button
-                          className="p-2 rounded-full hover:bg-red-600/20 transition-all duration-300 group"
-                          onClick={(e) => handleButtonClick(e, mentor._id)}
-                        >
-                          <Heart
-                            className={`w-5 h-5  ${Suser?.wishlist.some(
-                              (item) => item._id == mentor._id
-                            )
-                                ? "text-red-500 "
-                                : "text-gray-400"
-                              } transition-colors duration-300`}
-                          />
-                        </button>
-                      </div>
-
-                      {/* Description */}
-                      <p className="text-gray-300 text-sm mb-4 leading-relaxed relative z-10">
-                        {mentor?.description}
-                      </p>
-
-                      {/* Stats */}
-                      <div className="grid grid-cols-3 gap-4 mb-4 text-center relative z-10">
-                        <div className="bg-[#050505] rounded-xl p-3 border border-white/5 hover:border-red-500/30 transition-all duration-300 group">
-                          <div className="text-lg font-bold text-white group-hover:text-red-400 transition-colors duration-300">
-                            {mentor?.mentees}
-                          </div>
-                          <div className="text-xs text-gray-500">Mentees</div>
-                        </div>
-                        <div className="bg-[#050505] rounded-xl p-3 border border-white/5 hover:border-red-500/30 transition-all duration-300 group">
-                          <div className="text-lg font-bold text-white group-hover:text-red-400 transition-colors duration-300">
-                            {mentor?.sessions}
-                          </div>
-                          <div className="text-xs text-gray-500">Sessions</div>
-                        </div>
-                        <div className="bg-[#050505] rounded-xl p-3 border border-white/5 hover:border-red-500/30 transition-all duration-300 group">
-                          <div className="text-lg font-bold text-white group-hover:text-red-400 transition-colors duration-300">
-                            5+
-                          </div>
-                          <div className="text-xs text-gray-500">Years Exp</div>
-                        </div>
-                      </div>
-
-                      {/* Info */}
-                      <div className="space-y-2 mb-6 relative z-10">
-                        <div className="flex items-center gap-2 text-sm text-gray-400 hover:text-gray-300 transition-colors duration-300">
-                          <MapPin className="w-4 h-4 text-red-500" />
-                          <span>{mentor?.location}</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm text-gray-400 hover:text-gray-300 transition-colors duration-300">
-                          <Clock className="w-4 h-4 text-red-500" />
-                          <span>{mentor?.responseTime}</span>
-                        </div>
-                      </div>
-
-                      {/* Price and Actions */}
-                      <div className="flex items-center justify-between pt-4 border-t border-white/5 relative z-10">
-                        <div className="flex items-center gap-1">
-                          <span className="text-2xl font-bold text-white tracking-tight">
-                            ${mentor?.price}
-                          </span>
-                          <span className="text-gray-500 text-sm">
-                            /session
-                          </span>
-                        </div>
-                        <div className="flex gap-2">
-                          <button
-                            className="p-2 rounded-xl border border-white/10 hover:bg-red-600/10 hover:border-red-500/50 transition-all duration-300 group"
-                            onClick={(e) => NavigateToChat(e, mentor._id)}
-                          >
-                            <MessageCircle className="w-5 h-5 text-gray-400 group-hover:text-red-400 transition-colors duration-300" />
-                          </button>
-                          <button
-                            className="px-6 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-all duration-300 font-medium"
-                            onClick={(e) => handleButtonClick(e)}
-                          >
-                            Book Session
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full pr-4">
+                {Lowtohigh?.map((mentor) => (
+                  <MentorCard
+                    key={mentor._id || mentor.id}
+                    mentor={mentor}
+                    Suser={Suser}
+                    handleButtonClick={handleButtonClick}
+                    NavigateToChat={NavigateToChat}
+                  />
                 ))}
               </div>
 
@@ -523,9 +230,7 @@ function BrowseMentor() {
               <div ref={loadMoreRef} className="text-center mt-8">
                 <button
                   className="px-8 py-3 bg-[#0a0a0a] border border-white/10 text-white rounded-xl hover:bg-red-600 hover:border-red-600 transition-all duration-500 font-medium shadow-lg transform hover:-translate-y-1 relative overflow-hidden group"
-                  onClick={(e) =>
-                    handleButtonClick(e, () => Setpages(pages + 1))
-                  }
+                  onClick={() => Setpages(pages + 1)}
                 >
                   <span className="relative z-10">Load More Mentors</span>
                 </button>

@@ -1,159 +1,54 @@
-import express from "express";
+import e from "express";
 import { Auth } from "../middleWear/Auth.js";
-import {
-  SendMessage,
-  GetUserMessage,
-  DeleteMessage,
-  EditMessage,
-  SeenMessage,
-  DeleteForEveryone,
-  DeleteForMe,
-} from "../Controller/Message.js";
+import { CreateFeedBack } from "../Controller/Feedback.js";
 
-const MessageRouter = express.Router();
+const FeedbackRouter = e.Router();
 
 /**
  * @swagger
  * tags:
- *   name: Messages
- *   description: Messaging APIs
+ *   name: Feedback
+ *   description: Feedback APIs
  */
 
 /**
  * @swagger
- * /message/send:
+ * /feedback/create:
  *   post:
- *     summary: Send a message
- *     tags: [Messages]
+ *     summary: Create feedback for a mentor by a mentee
+ *     tags: [Feedback]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
+ *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             required:
- *               - conversation
- *               - text
+ *               - mentee
+ *               - mentor
+ *               - comment
  *             properties:
- *               conversation:
+ *               mentee:
  *                 type: string
- *               text:
+ *                 description: Mentee ID
+ *               mentor:
  *                 type: string
- *               isRead:
- *                 type: boolean
+ *                 description: Mentor ID
+ *               comment:
+ *                 type: string
+ *                 description: Feedback comment
  *     responses:
  *       201:
- *         description: Message sent successfully
+ *         description: Feedback created successfully
+ *       400:
+ *         description: Missing required fields
+ *       403:
+ *         description: Could not create feedback
+ *       404:
+ *         description: Mentee not found
  */
-MessageRouter.post("/send", Auth, SendMessage);
+FeedbackRouter.post("/create", Auth, CreateFeedBack);
 
-/**
- * @swagger
- * /message/get:
- *   post:
- *     summary: Get messages of a conversation
- *     tags: [Messages]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               id:
- *                 type: string
- *     responses:
- *       200:
- *         description: Messages fetched
- */
-MessageRouter.post("/get", Auth, GetUserMessage);
-
-/**
- * @swagger
- * /message/delete/{id}:
- *   delete:
- *     summary: Delete message
- *     tags: [Messages]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *     responses:
- *       200:
- *         description: Message deleted
- */
-MessageRouter.delete("/delete/:id", Auth, DeleteMessage);
-
-/**
- * @swagger
- * /message/edit/{id}:
- *   put:
- *     summary: Edit a message
- *     tags: [Messages]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *     requestBody:
- *       content:
- *         application/json:
- *           schema:
- *             properties:
- *               text:
- *                 type: string
- *     responses:
- *       200:
- *         description: Message updated
- */
-MessageRouter.put("/edit/:id", Auth, EditMessage);
-
-/**
- * @swagger
- * /message/seen:
- *   post:
- *     summary: Mark messages as seen
- *     tags: [Messages]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       content:
- *         application/json:
- *           schema:
- *             properties:
- *               convoId:
- *                 type: string
- *     responses:
- *       200:
- *         description: Messages marked as seen
- */
-MessageRouter.post("/seen", Auth, SeenMessage);
-
-/**
- * @swagger
- * /message/deleteforeveryone/{id}:
- *   delete:
- *     summary: Delete message for everyone
- *     tags: [Messages]
- *     security:
- *       - bearerAuth: []
- */
-MessageRouter.delete("/deleteforeveryone/:id", Auth, DeleteForEveryone);
-
-/**
- * @swagger
- * /message/deleteforme/{id}:
- *   delete:
- *     summary: Delete message for me
- *     tags: [Messages]
- *     security:
- *       - bearerAuth: []
- */
-MessageRouter.delete("/deleteforme/:id", Auth, DeleteForMe);
-
-export default MessageRouter;
+export default FeedbackRouter;
