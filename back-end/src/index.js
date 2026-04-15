@@ -52,6 +52,8 @@ const io = new Server(server, {
     origin: "*",
     credentials: true, // ✅ lowercase
   },
+  transports: ["websocket"], // 🔥 MUST ADD
+
 });
 
 io.on("connection", (socket) => {
